@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Когнитивные стратегии адаптивного реагирования на рекламу | Проект Миланы Дементьевой</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #ffffff;
+            color: #1a2b4c;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        :root {
+            --primary: #2c7da0;
+            --primary-light: #61a5c2;
+            --primary-pale: #e2f0f9;
+            --accent: #f0f8ff;
+            --text-dark: #1a2b4c;
+            --text-muted: #4a5c6c;
+            --white: #ffffff;
+            --shadow: 0 8px 30px rgba(44, 125, 160, 0.08);
+            --shadow-hover: 0 16px 40px rgba(44, 125, 160, 0.15);
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(44, 125, 160, 0.15);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            padding: 1.1rem 1rem;
+            transition: 0.3s;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 600;
+            font-size: 0.95rem;
+            letter-spacing: 0.4px;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0%;
+            height: 2px;
+            background: var(--primary);
+            transition: width 0.3s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        section {
+            padding: 6rem 2rem 5rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Секция 1: Проблема */
+        .problem-section {
+            text-align: center;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(180deg, var(--accent) 0%, var(--white) 100%);
+            border-radius: 0 0 3rem 3rem;
+            margin-bottom: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .problem-section::before {
+            content: '';
+            position: absolute;
+            top: -60px;
+            right: -60px;
+            width: 200px;
+            height: 200px;
+            background: var(--primary-pale);
+            border-radius: 50%;
+            opacity: 0.5;
+            z-index: 0;
+        }
+
+        .problem-section::after {
+            content: '';
+            position: absolute;
+            bottom: -40px;
+            left: -40px;
+            width: 180px;
+            height: 180px;
+            background: var(--primary-pale);
+            border-radius: 50%;
+            opacity: 0.4;
+            z-index: 0;
+        }
+
+        .problem-section .content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .problem-section h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            margin-bottom: 1.8rem;
+            color: var(--text-dark);
+            line-height: 1.3;
+        }
+
+        .highlight {
+            background: linear-gradient(120deg, rgba(44, 125, 160, 0.15) 0%, rgba(97, 165, 194, 0.25) 100%);
+            background-repeat: no-repeat;
+            background-size: 100% 45%;
+            background-position: 0 85%;
+            padding: 0 0.2rem;
+        }
+
+        .problem-description {
+            font-size: 1.3rem;
+            max-width: 750px;
+            color: var(--text-muted);
+            margin: 0 auto 2.5rem;
+            font-weight: 500;
+        }
+
+        .stat-badge {
+            background: var(--primary-pale);
+            color: var(--primary);
+            padding: 0.7rem 2rem;
+            border-radius: 50px;
+            font-weight: 700;
+            display: inline-block;
+            font-size: 1rem;
+            letter-spacing: 0.3px;
+            border: 1px solid rgba(44, 125, 160, 0.2);
+        }
+
+        /* Секция 2: Правила */
+        .rules-section {
+            background: var(--white);
+            border-radius: 2.5rem;
+            padding: 5rem 2rem;
+            margin-top: 1rem;
+            position: relative;
+        }
+
+        .rules-section h2 {
+            text-align: center;
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 3.5rem;
+            color: var(--text-dark);
+        }
+
+        .rules-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .rule-card {
+            background: var(--white);
+            padding: 2.2rem 1.8rem;
+            border-radius: 1.8rem;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(44, 125, 160, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .rule-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+            border-color: rgba(44, 125, 160, 0.25);
+        }
+
+        .rule-image {
+            width: 100%;
+            height: 160px;
+            object-fit: contain;
+            margin-bottom: 1.2rem;
+            border-radius: 1rem;
+        }
+
+        .rule-card h3 {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 1.3rem;
+            color: var(--text-dark);
+            text-align: center;
+        }
+
+        .rule-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .rule-card ul li {
+            margin-bottom: 1rem;
+            padding-left: 1.8rem;
+            position: relative;
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .rule-card ul li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .rule-card ul li strong {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        /* Секция 3: Контакты */
+        .contact-section {
+            text-align: center;
+            padding: 5rem 2rem;
+            background: var(--accent);
+            border-radius: 2.5rem 2.5rem 0 0;
+            margin-top: 2rem;
+        }
+
+        .contact-section h2 {
+            font-size: 2.6rem;
+            font-weight: 700;
+            margin-bottom: 1.2rem;
+            color: var(--text-dark);
+        }
+
+        .contact-subtitle {
+            color: var(--text-muted);
+            margin-bottom: 2.5rem;
+            font-size: 1.2rem;
+            font-weight: 500;
+        }
+
+        .cat-photo {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            display: block;
+            border: 4px solid var(--primary-light);
+            box-shadow: var(--shadow);
+        }
+
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .contact-name {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .contact-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.8rem;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .contact-item {
+            background: var(--white);
+            padding: 1.2rem 2.2rem;
+            border-radius: 3rem;
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            transition: all 0.3s;
+            box-shadow: var(--shadow);
+            border: 1px solid transparent;
+            font-size: 0.95rem;
+        }
+
+        .contact-item:hover {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .project-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1.2rem;
+            margin-top: 1rem;
+        }
+
+        .project-link {
+            background: var(--white);
+            padding: 0.9rem 2rem;
+            border-radius: 3rem;
+            text-decoration: none;
+            color: var(--primary);
+            font-weight: 700;
+            box-shadow: var(--shadow);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            border: 1px solid rgba(44, 125, 160, 0.2);
+        }
+
+        .project-link:hover {
+            background: var(--primary-pale);
+            transform: translateY(-3px);
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: #8aa0b8;
+            font-size: 0.9rem;
+            background: var(--white);
+            font-weight: 500;
+        }
+
+        @media (max-width: 900px) {
+            .rules-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            nav {
+                gap: 1.2rem;
+                font-size: 0.8rem;
+            }
+
+            .problem-section h1 {
+                font-size: 2.4rem;
+            }
+        }
+
+        @media (max-width: 650px) {
+            .rules-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .problem-section h1 {
+                font-size: 2rem;
+            }
+
+            .problem-description {
+                font-size: 1.1rem;
+            }
+
+            .rules-section h2 {
+                font-size: 2.2rem;
+            }
+
+            .contact-links {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="#problem">Суть проблемы</a>
+        <a href="#rules">Правила защиты</a>
+        <a href="#contact">Контакты</a>
+    </nav>
+
+    <!-- Раздел 1: Описание проблемы -->
+    <section id="problem" class="problem-section">
+        <div class="content">
+            <h1>
+                <span class="highlight">Информационное поле</span> переполнено<br>рекламой: как защитить себя
+            </h1>
+            <p class="problem-description">
+                Молодежь в возрасте от 14 до 35 лет является наиболее активным потребителем цифрового контента, и именно на эту аудиторию направлены самые изощренные маркетинговые стратегии. В связи с этим возникает острая необходимость в развитии медиаграмотности и формировании адаптивных когнитивных стратегий, позволяющих критически оценивать входящую коммерческую информацию.
+            </p>
+            <div class="stat-badge">
+                📊 Ваше внимание — главный товар в цифровой экономике
+            </div>
+        </div>
+    </section>
+
+    <!-- Раздел 2: Правила противодействия (3 колонки) -->
+    <section id="rules" class="rules-section">
+        <h2>Как противостоять рекламному воздействию</h2>
+        <div class="rules-grid">
+            
+            <!-- Колонка 1: Цифровая гигиена -->
+            <div class="rule-card">
+                <img src="https://cdn-icons-png.flaticon.com/512/1041/1041916.png" alt="Цифровая гигиена" class="rule-image">
+                <h3>Цифровая гигиена</h3>
+                <ul>
+                    <li><strong>Блокировщики (AdBlock):</strong> ограничение визуального шума на базовом уровне.</li>
+                    <li><strong>Управление алгоритмами:</strong> сознательное «обучение» ленты рекомендаций — лайки только на полезный контент, скрытие нежелательной рекламы через функции соцсетей. Некоторые приложения позволяют отключать таргетированную рекламу и выбирать неинтересные категории товаров.</li>
+                    <li><strong>Режим «Инкогнито» и чистка кэша:</strong> предотвращение сбора данных для глубокого таргетинга, который использует ваши слабости.</li>
+                </ul>
+            </div>
+
+            <!-- Колонка 2: Критическое мышление -->
+            <div class="rule-card">
+                <img src="https://cdn-icons-png.flaticon.com/512/4616/4616735.png" alt="Критическое мышление" class="rule-image">
+                <h3>Критическое мышление</h3>
+                <ul>
+                    <li><strong>Деконструкция образа:</strong> метод «разоблачения». Когда видишь идеальный рекламный ролик, представь, сколько людей над ним работало, какой свет выставлен и что осталось за кадром. Это разрушает магию внушения.</li>
+                    <li><strong>Поиск «скрытого контракта»:</strong> при просмотре интеграции у блогера задавай вопрос: «Что он получает за этот совет?» и присмотрись к пометке о рекламе внизу экрана.</li>
+                    <li><strong>Верификация через альтернативные источники:</strong> используй независимые сайты-отзовики и профессиональные обзоры (не рекламные) перед покупкой. Спрашивай отзывы у знакомых.</li>
+                </ul>
+            </div>
+
+            <!-- Колонка 3: Эмоциональный интеллект -->
+            <div class="rule-card">
+                <img src="https://cdn-icons-png.flaticon.com/512/2964/2964512.png" alt="Эмоциональный интеллект" class="rule-image">
+                <h3>Эмоциональный интеллект</h3>
+                <ul>
+                    <li><strong>Пауза на дофамин:</strong> реклама бьет в центры удовольствия. Метод «отложенной корзины» — добавить товар в избранное и вернуться к нему через 48 часов — позволяет снизить дофамин и вернуть контроль мозгу.</li>
+                    <li><strong>Меньше коротких видео:</strong> подросток может посмотреть около 200 роликов в день, что сильно нагружает мозг. Reels, TikTok, Shorts эффективно рекламируют товары из-за высокой плотности информации, быстрого захвата внимания и клипового формата. Снижай потребление такого контента.</li>
+                </ul>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Раздел 3: Контакты / Обратная связь -->
+    <section id="contact" class="contact-section">
+        <h2>Связь и материалы проекта</h2>
+        <p class="contact-subtitle">Исследование выполнила</p>
+        
+        <!-- Фото кота -->
+        <img src="Кошка_Джесс.jpeg" alt="Кошка Джесс" class="cat-photo">
+        
+        <div class="contact-info">
+            <div class="contact-name">Милана Дементьева</div>
+        </div>
+        
+        <div class="contact-links">
+            <a href="mailto:razumnoemyshlenie.00@mail.ru" class="contact-item">
+                ✉️ razumnoemyshlenie.00@mail.ru
+            </a>
+        </div>
+
+        <p style="margin-top: 2rem; color: var(--text-muted); font-weight: 600;">Материалы проекта:</p>
+        <div class="project-links">
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSeYvINMNB4W2bOCnXsv_lRYO2j_WhiyKx_HZHKk62g0JPJFeg/viewform?usp=header" target="_blank" class="project-link">
+                📋 Открыть опрос
+            </a>
+            <a href="https://disk.yandex.ru/i/Es0hxDCjTx4QTw" target="_blank" class="project-link">
+                📄 Скачать проект
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        © 2026 Милана Дементьева. Индивидуальный проект «Когнитивные стратегии адаптивного реагирования на коммерческое информационное воздействие». 
+    </footer>
+
+</body>
+</html>
